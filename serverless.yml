@@ -1,0 +1,13 @@
+provider:
+  region: us-west-2
+  name: aws
+  timeout: 30
+  memorySize: 1024
+  runtime: provided
+
+functions:
+  auth0-add-url:
+    name: auth0-add-url
+    description: 'Simple utility to add dev env urls to auth0'
+    handler: index.js
+    tracing: Active
