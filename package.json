@@ -4,7 +4,8 @@
   "description": "Lambda function to add trusted url to Auth0 Client Applications",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test"
+    "test": "mocha test",
+    "ci-deploy": "node node_modules/serverless/bin/serverless deploy --KeyId \"$KEYID\""
   },
   "repository": {
     "type": "git",
@@ -22,15 +23,17 @@
   "dependencies": {
     "auth0": "^2.20.0",
     "aws-sdk": "^2.603.0",
-    "bluebird": "^3.7.2"
+    "bluebird": "^3.7.2",
+    "isurl": "^4.0.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "eslint": "^6.8.0",
     "mocha": "^7.0.0",
+    "mock-aws-sinon": "^1.3.2",
     "rewire": "^4.0.1",
-    "sinon": "^4.1.3",
-    "mock-aws-sinon": "^1.3.2"
+    "serverless-pseudo-parameters": "^2.5.0",
+    "sinon": "^4.1.3"
   }
 }

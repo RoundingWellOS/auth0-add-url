@@ -37,24 +37,24 @@ describe('Handler', () => {
       secretSpy,
       auth0Spy,
     };
-  }
+  };
 
   it('should throw an error if secretEnv is not defined', () => {
     return handler({ url: 'https://test.roundingwell.com' }, context, cb).should.be.rejectedWith(
-      /secretEnv is required/
+      /secretEnv is required/,
     );
   });
 
   it('should throw an error if url is not defined', () => {
     return handler({ secretEnv: 'test' }, context, cb).should.be.rejectedWith(
-      /url is required/
+      /url is required/,
     );
   });
 
   it('should add urls', () => {
     const mockEvent = {
       secretEnv: 'test',
-      url: 'test'
+      url: 'test',
     };
     const { secretSpy, auth0Spy } = makeMockHandler();
 

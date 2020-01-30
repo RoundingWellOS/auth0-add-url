@@ -8,14 +8,14 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-{{ checksum "package-lock.json" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
       - run: npm i
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-{{ checksum "package-lock.json" }}
       - run: npm run test
       - persist_to_workspace:
           root: .
@@ -30,7 +30,7 @@ jobs:
           at: .
       - restore_cache:
           keys:
-            - npm-circleci-{{ checksum "package.lock" }}
+            - npm-circleci-{{ checksum "package-lock.json" }}
             - npm-circleci-
       - run:
           name: Install Serverless CLI and dependencies
@@ -41,8 +41,7 @@ jobs:
             - node_modules
       - run:
           name: Build and deploy lambda package
-          command: |
-            node .circlecli/bin/node_modules/serverless/bin/serverless deploy
+          command: npm run ci-deploy
 
 workflows:
   version: 2.1

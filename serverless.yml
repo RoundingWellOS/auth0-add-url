@@ -1,13 +1,35 @@
+service: auth0-add-url
+
+plugins:
+  - serverless-pseudo-parameters
+
 provider:
   region: us-west-2
   name: aws
   timeout: 30
+  stage: ${opt:stage,'preview'}
   memorySize: 1024
-  runtime: provided
+  runtime: nodejs10.x
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - secretsmanager:GetSecretValue
+        - secretsmanager:DescribeSecret
+        - secretsmanager:GetResourcePolicy
+        - secretsmanager:ListSecretVersionIds
+      Resource: ${self:custom.secretArn}
+    - Effect: "Allow"
+      Action:
+        - kms:Decrypt
+      Resource: "${self:custom.keyArn}"
 
 functions:
   auth0-add-url:
     name: auth0-add-url
+    handler: 'index.handler'
     description: 'Simple utility to add dev env urls to auth0'
-    handler: index.js
     tracing: Active
+
+custom:
+  secretArn: "arn:aws:secretsmanager:${self:provider.region}:#{AWS::AccountId}:secret:${self:provider.stage}/env*"
+  keyArn: "anr:aws:kms:${self:provider.region}:#{AWS::AccountId}:key/${opt:KeyId,'*'}"
