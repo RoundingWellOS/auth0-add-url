@@ -21,7 +21,7 @@
   "homepage": "https://github.com/RoundingWellOS/auth0-add-url#readme",
   "dependencies": {
     "auth0": "^2.20.0",
-    "aws-sdk": "^2.603.0",
+    "aws-sdk": "^2.814.0",
     "bluebird": "^3.7.2"
   },
   "devDependencies": {
